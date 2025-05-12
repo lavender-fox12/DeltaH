@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry Games</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-toggle">
+    <button id="toggleGame">Switch to Bond Breaker</button>
+  </div>
+
+  <!-- Chemistry Memory Match Game -->
+  <div id="memory-game" class="game-container active">
+    <div class="container">
+      <h1>🧪 Chemistry Memory Match 🔬</h1>
+      <p class="instructions">Match the chemical formulas with their names!</p>
+
+      <div id="game-container">
+        <div id="stats-container">
+          <div id="score">Score: <span>0</span></div>
+          <div id="timer">Time: <span>60</span>s</div>
+          <div id="matches">Matches: <span>0</span>/8</div>
+        </div>
+        <div id="card-grid" class="card-grid"></div>
+      </div>
+
+      <div class="controls">
+        <button id="startButton">Start Game</button>
+        <button id="resetButton" disabled>Reset Game</button>
+      </div>
+
+      <div id="message" class="hidden"></div>
+    </div>
+  </div>
+
+  <!-- Bond Breaker Blitz Game -->
+  <div id="bond-game" class="game-container">
+    <h1>🔬 Bond Breaker Blitz</h1>
+    <p class="instructions">Drag elements into the reaction zone to form bonds! 💖</p>
+    <div id="bond-score">Score: 0</div>
+
+    <div id="bond-game-container">
+      <div id="elements-area">
+        <div class="element" draggable="true" data-type="Na">Na⁺</div>
+        <div class="element" draggable="true" data-type="Cl">Cl⁻</div>
+        <div class="element" draggable="true" data-type="He">He</div>
+        <div class="element" draggable="true" data-type="H">H⁺</div>
+        <div class="element" draggable="true" data-type="O">O²⁻</div>
+        <div class="element" draggable="true" data-type="F">F⁻</div>
+      </div>
+
+      <div id="bond-zone">
+        <p>Drop elements here to bond them!</p>
+      </div>
+
+      <div id="bond-results"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="bond-game.js"></script>
+</body>
+</html>
