@@ -1,5 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  // You can expose any functions you need here
+  saveScore: (score) => ipcRenderer.invoke('save-score', score),
+  loadScore: () => ipcRenderer.invoke('load-score'),
+  showNotification: (title, body) => ipcRenderer.send('show-notification', title, body)
 });

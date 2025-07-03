@@ -3,10 +3,12 @@ const resetButton = document.getElementById("resetButton");
 const scoreDisplay = document.getElementById("score").querySelector("span");
 const timerDisplay = document.getElementById("timer").querySelector("span");
 const matchesDisplay = document.getElementById("matches").querySelector("span");
+const highScoreDisplay = document.getElementById("high-score").querySelector("span");
 const cardGrid = document.getElementById("card-grid");
 const messageDisplay = document.getElementById("message");
 
 let score = 0;
+let highScore = 0;
 let timeRemaining = 60;
 let timerInterval;
 let flippedCards = [];
@@ -160,6 +162,15 @@ function endGame(message, isWin) {
   clearInterval(timerInterval);
   startButton.disabled = false;
   resetButton.disabled = false;
+
+  if (score > highScore) {
+    highScore = score;
+    window.electronAPI.saveScore(highScore);
+    highScoreDisplay.textContent = highScore;
+    window.electronAPI.showNotification("New High Score!", `You set a new high score of ${highScore}`);
+  } else {
+    window.electronAPI.showNotification("Game Over", message);
+  }
   
   setTimeout(() => {
     showMessage(message, isWin ? "#66bb6a" : "#ff7043");
@@ -200,3 +211,7 @@ resetButton.addEventListener("click", resetGame);
 
 // Initialize game
 resetGame();
+window.electronAPI.loadScore().then(savedScore => {
+  highScore = savedScore;
+  highScoreDisplay.textContent = highScore;
+});

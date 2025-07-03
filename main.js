@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, Notification } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -23,4 +24,22 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
+});
+
+const dataPath = path.join(app.getPath('userData'), 'highScore.json');
+
+ipcMain.handle('save-score', (event, score) => {
+  fs.writeFileSync(dataPath, JSON.stringify({ highScore: score }));
+});
+
+ipcMain.handle('load-score', () => {
+  if (fs.existsSync(dataPath)) {
+    const data = fs.readFileSync(dataPath, 'utf-8');
+    return JSON.parse(data).highScore;
+  }
+  return 0;
+});
+
+ipcMain.on('show-notification', (event, title, body) => {
+  new Notification({ title, body }).show();
 });
