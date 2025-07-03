@@ -53,7 +53,7 @@ const cardData = [
 function createCardElement(card) {
   const cardElement = document.createElement("div");
   cardElement.classList.add("card");
-  cardElement.setAttribute("data-pair", card.id);
+  cardElement.setAttribute("data-id", card.id);
   cardElement.setAttribute("data-pair-id", card.pairId);
 
   const front = document.createElement("div");
@@ -64,7 +64,7 @@ function createCardElement(card) {
   back.classList.add("card-face", "card-back");
   back.textContent = card.value;
 
-  cardElement.appendChild(form);
+  cardElement.appendChild(front);
   cardElement.appendChild(back);
   cardElement.addEventListener("click", flipCard);
   
